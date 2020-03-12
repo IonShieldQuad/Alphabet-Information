@@ -1,0 +1,49 @@
+#:kivy 1.11.1
+
+<InfoWidget>:
+    BoxLayout:
+        orientation: "vertical"
+        width: root.width
+        height: root.height
+        BoxLayout:
+
+            orientation: "horizontal"
+            size_hint: (1, 1)
+            Label:
+                text: "Choose \r\nalphabet \r\nsource:"
+                size_hint: (0.5, 1)
+            Button:
+                id: read_file_button
+                on_release: root.read_file_button()
+                text: "Load \r\nalphabet.txt"
+                size_hint: (0.5, 1)
+            GridLayout:
+                cols: 2
+                rows: 2
+                Button:
+                    text: "Use \r\nRussian"
+                Button:
+                    text: "Use \r\nEnglish "
+                Button:
+                    text: "Use \r\nRussian \r\n(weighted)"
+                Button:
+                    text: "Use \r\nEnglish \r\n(weighted)"
+            Label:
+                id: out1
+                text: ""
+
+        Label:
+            text: "Enter your message below:"
+            size_hint: (1, 0.2)
+        TextInput:
+
+        BoxLayout:
+            orientation: "horizontal"
+            size_hint: (1, 1)
+            Button:
+                text: "Analyze \r\nmessage"
+                size_hint: (0.5, 1)
+            Label:
+                id: out2
+                text: ""
+
