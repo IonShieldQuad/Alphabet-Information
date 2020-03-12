@@ -44,11 +44,14 @@
             text: "Enter your message below:"
             size_hint: (1, 0.2)
         TextInput:
+            id: text_input
 
         BoxLayout:
             orientation: "horizontal"
             size_hint: (1, 1)
             Button:
+                id: analyze_button
+                on_release: root.analyze_button()
                 text: "Analyze \r\nmessage"
                 size_hint: (0.5, 1)
             Label:

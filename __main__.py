@@ -1,6 +1,7 @@
 
 import default_alphabets as da
 import kivy
+import math
 from kivy.app import App
 from kivy.uix.widget import Widget
 from kivy.config import Config
@@ -12,8 +13,7 @@ Config.set('graphics', 'height', '400')
 file_path = "alphabet.txt"
 limit = 256
 
-global alphabet
-alphabet = None
+alphabet = {}
 
 
 class InfoWidget(Widget):
@@ -59,7 +59,25 @@ class InfoWidget(Widget):
             out.text = "No alphabet \r\nloaded"
         else:
             out.text = "Alphabet: \r\n{}\r\nSymbols: {}".format(name, len(alphabet))
+        return
+
+    def analyze_button(self):
+        global alphabet
+        if alphabet is None:
             return
+        message = self.ids.text_input.text
+        info = 0
+        for char in message:
+            if char in alphabet:
+                freq = alphabet[char]
+                info += -math.log2(freq)
+        self.display_message_info(len(message), info)
+        return
+
+    def display_message_info(self, msg_len, value):
+        out = self.ids.out2
+        out.text = "Message length: {} \r\nInformation: {} bits".format(msg_len, value)
+        return
 
 
 class InfoApp(App):
