@@ -21,12 +21,20 @@
                 cols: 2
                 rows: 2
                 Button:
+                    id: russian_button
+                    on_release: root.russian_button()
                     text: "Use \r\nRussian"
                 Button:
+                    id: english_button
+                    on_release: root.english_button()
                     text: "Use \r\nEnglish "
                 Button:
+                    id: russian_weighted_button
+                    on_release: root.russian_weighted_button()
                     text: "Use \r\nRussian \r\n(weighted)"
                 Button:
+                    id: english_weighted_button
+                    on_release: root.english_weighted_button()
                     text: "Use \r\nEnglish \r\n(weighted)"
             Label:
                 id: out1

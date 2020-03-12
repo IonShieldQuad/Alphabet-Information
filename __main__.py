@@ -12,6 +12,7 @@ Config.set('graphics', 'height', '400')
 file_path = "alphabet.txt"
 limit = 256
 
+global alphabet
 alphabet = None
 
 
@@ -19,11 +20,37 @@ class InfoWidget(Widget):
     def read_file_button(self):
         try:
             out = read_file(file_path)
-            print("File:\r\n")
-            print(out)
-            self.ids.out1.text = "{}".format(len(out))
+            global alphabet
+            alphabet = {}
+            for item in out:
+                alphabet[item] = 1 / len(out)
+            self.display_alphabet_info("Custom")
         except FileNotFoundError:
-            print("File {} not found\r\n".format(file_path))
+            self.ids.out1.text = "File {} not found\r\n".format(file_path)
+        return
+
+    def russian_button(self):
+        global alphabet
+        alphabet = da.get_alphabet_russian()
+        self.display_alphabet_info("Russian")
+        return
+
+    def english_button(self):
+        global alphabet
+        alphabet = da.get_alphabet_english()
+        self.display_alphabet_info("English")
+        return
+
+    def english_weighted_button(self):
+        global alphabet
+        alphabet = da.get_alphabet_english_weighted()
+        self.display_alphabet_info("English\r\n(weighted)")
+        return
+
+    def russian_weighted_button(self):
+        global alphabet
+        alphabet = da.get_alphabet_russian_weighted()
+        self.display_alphabet_info("Russian\r\n(weighted)")
         return
 
     def display_alphabet_info(self, name):
@@ -31,7 +58,8 @@ class InfoWidget(Widget):
         if alphabet is None:
             out.text = "No alphabet \r\nloaded"
         else:
-            out.text = "Alphabet: \r\n {} \r\nCount: {}".format(name, len(alphabet))
+            out.text = "Alphabet: \r\n{}\r\nSymbols: {}".format(name, len(alphabet))
+            return
 
 
 class InfoApp(App):
@@ -53,10 +81,4 @@ def read_file(uri):
 
 
 if __name__ == "__main__":
-    try:
-        print("File:\r\n")
-        print(read_file(file_path))
-    except FileNotFoundError:
-        print("File {} not found\r\n".format(file_path))
-
     InfoApp().run()
