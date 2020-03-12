@@ -1,5 +1,5 @@
-# Default ignored files
-/workspace.xml
+/venv/pyvenv.cfg
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
